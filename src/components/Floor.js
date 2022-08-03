@@ -1,8 +1,12 @@
-const Floor = () => {
+import { usePlane } from '@react-three/cannon';
+
+const Floor = (props) => {
+  const [ref] = usePlane((index) => ({ ...props }));
+
   return (
-    <mesh receiveShadow rotation={[Math.PI / -2, 0, 0]}>
+    <mesh receiveShadow rotation={props.rotation}>
       <planeGeometry args={[1000, 1000]} />
-      <meshStandardMaterial color="white" />
+      <meshStandardMaterial color={props.color} />
     </mesh>
   );
 };

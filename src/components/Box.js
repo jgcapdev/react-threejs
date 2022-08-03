@@ -1,8 +1,12 @@
-const Box = () => {
+import { useBox } from '@react-three/cannon';
+
+const Box = (props) => {
+  const [ref] = useBox((index) => ({ mass: 1, ...props }));
+
   return (
-    <mesh castShadow position={[0, 0.5, 0]}>
-      <boxGeometry />
-      <meshStandardMaterial color="orange" />
+    <mesh castShadow position={props.position} ref={ref}>
+      <boxGeometry args={props.args} />
+      <meshStandardMaterial color={props.color} />
     </mesh>
   );
 };
