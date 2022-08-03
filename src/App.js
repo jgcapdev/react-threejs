@@ -5,6 +5,7 @@ import { Physics } from '@react-three/cannon';
 import Box from './components/Box';
 import Floor from './components/Floor';
 import Sphere from './components/Sphere';
+import RoomModel from './components/RoomModel';
 
 import './App.css';
 
@@ -22,6 +23,8 @@ function App() {
         <Box position={[0, 0.5, 0]} args={[2, 1, 2]} color="orange" />
         <Box position={[5, 1, 0]} args={[1.5, 2, 1.3]} color="red" />
         <Box position={[0, 0.5, 5]} args={[3, 1, 1.3]} color="green" />
+
+        <RoomModel />
 
         <Floor rotation={[Math.PI / -2, 0, 0]} color="white" />
       </Physics>
