@@ -4,7 +4,7 @@ const Box = (props) => {
   const [ref] = useBox((index) => ({ mass: 1, ...props }));
 
   return (
-    <mesh castShadow position={props.position} ref={ref}>
+    <mesh castShadow receiveShadow position={props.position} ref={ref}>
       <boxGeometry args={props.args} />
       <meshStandardMaterial color={props.color} />
     </mesh>
