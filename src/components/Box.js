@@ -1,7 +1,7 @@
 import { useBox } from '@react-three/cannon';
 
 const Box = (props) => {
-  const [ref] = useBox((index) => ({ mass: 1, ...props }));
+  const [ref] = useBox((index) => ({ type: 'Static', mass: 1, ...props }));
 
   return (
     <mesh castShadow receiveShadow position={props.position} ref={ref}>
