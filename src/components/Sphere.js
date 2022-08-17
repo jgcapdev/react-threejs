@@ -1,10 +1,12 @@
 import { useSphere } from '@react-three/cannon';
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePlayerControls } from '../utils/useControls';
 import * as THREE from 'three';
 
 const Sphere = (props) => {
+  const [event, setEvent] = useState('');
+
   const direction = new THREE.Vector3();
   const frontVector = new THREE.Vector3();
   const sideVector = new THREE.Vector3();
@@ -14,12 +16,16 @@ const Sphere = (props) => {
   const [ref, api] = useSphere((index) => ({
     mass: 1,
     onCollide: (e) => {
-      if (e.contact.bj.id === 43) {
+      // Be carefull, the ids will change if you add a new geometry
+      if (e.contact.bj.id === 56) {
         console.log('Contacto con amarillo');
-      } else if (e.contact.bj.id === 44) {
+        setEvent('Contacto con amarillo');
+      } else if (e.contact.bj.id === 57) {
         console.log('Contacto con rojo');
-      } else if (e.contact.bj.id === 45) {
+        setEvent('Contacto con rojo');
+      } else if (e.contact.bj.id === 58) {
         console.log('Contacto con verde');
+        setEvent('Contacto con verde');
       }
     },
     position: props.position,

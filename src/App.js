@@ -6,6 +6,7 @@ import Box from './components/Box';
 import Floor from './components/Floor';
 import Sphere from './components/Sphere';
 import RoomModel from './components/RoomModel';
+import Text from './components/Text';
 
 import './App.css';
 
@@ -16,6 +17,20 @@ function App() {
       <spotLight penumbra={0.5} position={[10, 10, 5]} castShadow />
 
       <axesHelper args={[100, 100, 100]} />
+
+      <Text
+        bold
+        position-y={4.5}
+        position-x={-2}
+        position-z={4}
+        rotation-y={Math.PI * 0.5}
+        lineHeight={1}
+        letterSpacing={-0.05}
+        fontSize={1.5}
+        color="black"
+      >
+        Hola
+      </Text>
 
       <Physics gravity={[0, -9.8, 0]}>
         <Sphere position={[0, 3, 0]} args={[0.5]} color="purple" />
