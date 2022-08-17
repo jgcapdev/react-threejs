@@ -1,35 +1,43 @@
 import { useSphere } from '@react-three/cannon';
-import { useEffect } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useEffect, useRef } from 'react';
+import { usePlayerControls } from '../utils/useControls';
+import * as THREE from 'three';
 
 const Sphere = (props) => {
+  const direction = new THREE.Vector3();
+  const frontVector = new THREE.Vector3();
+  const sideVector = new THREE.Vector3();
+  const speed = new THREE.Vector3();
+  const SPEED = 5;
+
   const [ref, api] = useSphere((index) => ({
     mass: 1,
     onCollide: (e) => {
-      if (e.contact.bi.id === 42) {
+      if (e.contact.bj.id === 43) {
         console.log('Contacto con amarillo');
+      } else if (e.contact.bj.id === 44) {
+        console.log('Contacto con rojo');
+      } else if (e.contact.bj.id === 45) {
+        console.log('Contacto con verde');
       }
     },
+    position: props.position,
     ...props,
   }));
 
-  useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'w') {
-        console.log('arriba');
+  const { forward, backward, left, right, jump } = usePlayerControls();
+  const velocity = useRef([0, 0, 0]);
+  useEffect(() => api.velocity.subscribe((v) => (velocity.current = v)), []);
 
-        console.log(props.position);
-      } else if (e.key === 's') {
-        console.log('abajo');
+  useFrame((state) => {
+    frontVector.set(0, 0, Number(backward) - Number(forward));
+    sideVector.set(Number(left) - Number(right), 0, 0);
+    direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(SPEED);
+    speed.fromArray(velocity.current);
 
-        console.log(props.position);
-      } else if (e.key === 'a') {
-        console.log('izquierda');
-      } else if (e.key === 'd') {
-        console.log('derecha');
-      } else if (e.key === 'r') {
-        api.position.set(props.position[0], props.position[1], props.position[2]);
-      }
-    });
+    api.velocity.set(direction.x, velocity.current[1], direction.z);
+    if (jump && Math.abs(velocity.current[1].toFixed(2)) < 0.05) api.velocity.set(velocity.current[0], 1, velocity.current[2]);
   });
 
   return (

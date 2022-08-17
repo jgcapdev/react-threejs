@@ -1,25 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-export function useKeyPress(target, event) {
+const keys = { KeyW: 'forward', KeyS: 'backward', KeyA: 'left', KeyD: 'right', Space: 'jump' };
+const moveFieldByKey = (key) => keys[key];
+
+export const usePlayerControls = () => {
+  const [movement, setMovement] = useState({ forward: false, backward: false, left: false, right: false, jump: false });
   useEffect(() => {
-    const downHandler = ({ key }) => target.indexOf(key) !== -1 && event(true);
-    const upHandler = ({ key }) => target.indexOf(key) !== -1 && event(false);
-    window.addEventListener('keydown', downHandler);
-    window.addEventListener('keyup', upHandler);
+    const handleKeyDown = (e) => setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: true }));
+    const handleKeyUp = (e) => setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: false }));
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
     return () => {
-      window.removeEventListener('keydown', downHandler);
-      window.removeEventListener('keyup', upHandler);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
-}
-
-export function useControls() {
-  const keys = useRef({ forward: false, backward: false, left: false, right: false, brake: false, reset: false });
-  useKeyPress(['ArrowUp', 'w'], (pressed) => (keys.current.forward = pressed));
-  useKeyPress(['ArrowDown', 's'], (pressed) => (keys.current.backward = pressed));
-  useKeyPress(['ArrowLeft', 'a'], (pressed) => (keys.current.left = pressed));
-  useKeyPress(['ArrowRight', 'd'], (pressed) => (keys.current.right = pressed));
-  useKeyPress([' '], (pressed) => (keys.current.brake = pressed));
-  useKeyPress(['r'], (pressed) => (keys.current.reset = pressed));
-  return keys;
-}
+  return movement;
+};
