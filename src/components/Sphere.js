@@ -15,12 +15,11 @@ const Sphere = (props) => {
     mass: 1,
     onCollide: (e) => {
       console.log(e);
-      // Be carefull, the ids will change if you add a new geometry
-      if (e.contact.bj.id === 66) {
+      if (e.body.id === 66) {
         console.log('Contacto con amarillo');
-      } else if (e.contact.bj.id === 67) {
+      } else if (e.body.id === 67) {
         console.log('Contacto con rojo');
-      } else if (e.contact.bj.id === 68) {
+      } else if (e.body.id === 68) {
         console.log('Contacto con verde');
       }
     },
