@@ -21,15 +21,15 @@ function App() {
       <Text
         bold
         position-y={4.5}
-        position-x={-2}
-        position-z={4}
+        position-x={-1.5}
+        position-z={7}
         rotation-y={Math.PI * 0.5}
         lineHeight={1}
         letterSpacing={-0.05}
         fontSize={1.5}
         color="black"
       >
-        Hola
+        3 Rooms Demo
       </Text>
 
       <Physics gravity={[0, -9.8, 0]}>
