@@ -20,11 +20,11 @@ const Sphere = (props) => {
     mass: 1,
     onCollide: (e) => {
       if (e.body.id === 70) {
-        dispatch(setText('Contacto con amarillo'));
+        dispatch(setText('Contact with yellow'));
       } else if (e.body.id === 71) {
-        dispatch(setText('Contacto con rojo'));
+        dispatch(setText('Contact with red'));
       } else if (e.body.id === 72) {
-        dispatch(setText('Contacto con verde'));
+        dispatch(setText('Contact with green'));
       }
     },
     position: props.position,

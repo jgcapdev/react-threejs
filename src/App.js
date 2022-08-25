@@ -5,7 +5,6 @@ import { Physics } from '@react-three/cannon';
 import Box from './components/Box';
 import Floor from './components/Floor';
 import Sphere from './components/Sphere';
-import RoomModel from './components/RoomModel';
 import Text from './components/Text';
 
 import { useSelector } from 'react-redux';
@@ -45,7 +44,6 @@ function App() {
           <Box position={[5, 1, 0]} args={[1.5, 2, 1.3]} color="red" />
           <Box position={[0, 0.5, 5]} args={[3, 1, 1.3]} color="green" />
 
-          {/* <RoomModel /> */}
           <Model />
 
           <Floor rotation={[Math.PI / -2, 0, 0]} color="white" />
