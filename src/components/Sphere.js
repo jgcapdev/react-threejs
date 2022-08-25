@@ -4,7 +4,12 @@ import { useEffect, useRef } from 'react';
 import { usePlayerControls } from '../utils/useControls';
 import * as THREE from 'three';
 
+import { useDispatch } from 'react-redux';
+import { setText } from '../redux/actions/actions.js';
+
 const Sphere = (props) => {
+  const dispatch = useDispatch();
+
   const direction = new THREE.Vector3();
   const frontVector = new THREE.Vector3();
   const sideVector = new THREE.Vector3();
@@ -14,13 +19,12 @@ const Sphere = (props) => {
   const [ref, api] = useSphere((index) => ({
     mass: 1,
     onCollide: (e) => {
-      console.log(e);
-      if (e.body.id === 66) {
-        console.log('Contacto con amarillo');
-      } else if (e.body.id === 67) {
-        console.log('Contacto con rojo');
-      } else if (e.body.id === 68) {
-        console.log('Contacto con verde');
+      if (e.body.id === 70) {
+        dispatch(setText('Contacto con amarillo'));
+      } else if (e.body.id === 71) {
+        dispatch(setText('Contacto con rojo'));
+      } else if (e.body.id === 72) {
+        dispatch(setText('Contacto con verde'));
       }
     },
     position: props.position,
